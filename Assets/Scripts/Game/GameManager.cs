@@ -11,8 +11,8 @@ namespace Game
     {
         public int currentCost;
         public int timeRemaining;
-        public int policeAwarenessRaised;
-        public int mobsterAwarenessRaised;
+        public int policeAlertRaised;
+        public int mobsterAlertRaised;
         public int mobsterCaught;
     }
     
@@ -23,11 +23,11 @@ namespace Game
         [Header("GameConfig")] 
         public int playerStartingCost = 3;
         public int timeHoursPerDay = 18;
-        
+        public int maxPoliceAlert = 100;
+
         [Header("GameState")]
         public GameOutcome currentOutcome;
-        public GameOutcome endingOutcome;
-
+        
         private int _currentPlayerCost;
         
         //event declaration
@@ -53,14 +53,13 @@ namespace Game
             StartGame();
         }
 
-        public void StartGame()
+        private void StartGame()
         {
             StartDay();
             OnOutcomeChanged?.Invoke(currentOutcome);
         }
-        
-        
-        public void StartDay()
+
+        private void StartDay()
         {
             currentOutcome.timeRemaining = timeHoursPerDay;
             currentOutcome.currentCost = playerStartingCost;
@@ -73,8 +72,8 @@ namespace Game
             
             //apply choice effect
             currentOutcome.timeRemaining -= choice.decisionOutcome.timeRequired;
-            currentOutcome.policeAwarenessRaised += choice.decisionOutcome.policeAwarenessRaised;
-            currentOutcome.mobsterAwarenessRaised += choice.decisionOutcome.mobsterAwarenessRaised;
+            currentOutcome.policeAlertRaised += choice.decisionOutcome.policeAlertRaised;
+            currentOutcome.mobsterAlertRaised += choice.decisionOutcome.mobsterAlertRaised;
             currentOutcome.mobsterCaught += choice.decisionOutcome.mobsterCaught;
             
             OnOutcomeChanged?.Invoke(currentOutcome);
@@ -87,7 +86,7 @@ namespace Game
 
         private bool IsCaught()
         {
-            return currentOutcome.policeAwarenessRaised == endingOutcome.policeAwarenessRaised;
+            return currentOutcome.policeAlertRaised == maxPoliceAlert;
         }
     }
 }

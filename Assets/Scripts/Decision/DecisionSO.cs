@@ -9,8 +9,8 @@ namespace Decision
     {
         public int cost;
         public int timeRequired;
-        public int policeAwarenessRaised;
-        public int mobsterAwarenessRaised;
+        public int policeAlertRaised;
+        public int mobsterAlertRaised;
         public int mobsterCaught;
     }
     

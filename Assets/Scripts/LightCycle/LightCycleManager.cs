@@ -10,10 +10,12 @@ namespace LightCycle
         [SerializeField] private Light directionalLight;
         [SerializeField] private LightingPreset preset;
         
-        [Header("Time of Day")]
+        [Header("CurrentTime of Day - In hours")]
         [SerializeField, Range(0, 24)] private float timeOfDay;
 
-
+        [Header("Hour per real time seconds")]
+        [SerializeField] private int realTimeSeconds = 10;
+        
         private void Update()
         {
             if (preset == null)
@@ -24,9 +26,8 @@ namespace LightCycle
 
             if (Application.isPlaying)
             {
-                
                 //(Replace with a reference to the game time)
-                timeOfDay += Time.deltaTime;
+                timeOfDay += Time.deltaTime / realTimeSeconds;
                 timeOfDay %= 24; //Modulus to ensure always between 0-24
                 UpdateLighting(timeOfDay / 24f);
             }
@@ -35,8 +36,7 @@ namespace LightCycle
                 UpdateLighting(timeOfDay / 24f);
             }
         }
-
-
+        
         private void UpdateLighting(float timePercent)
         {
             //Set ambient and fog
@@ -50,7 +50,6 @@ namespace LightCycle
 
                 directionalLight.transform.localRotation = Quaternion.Euler(new Vector3((timePercent * 360f) - 90f, 170f, 0));
             }
-
         }
 
         //Try to find a directional light to use if we haven't set one
@@ -64,10 +63,9 @@ namespace LightCycle
             {
                 directionalLight = RenderSettings.sun;
             }
-            
-            //Search scene for light that fits criteria (directional)
             else
             {
+                //Search scene for light that fits criteria (directional)
                 Light[] lights = GameObject.FindObjectsOfType<Light>();
                 foreach (Light light in lights)
                 {
