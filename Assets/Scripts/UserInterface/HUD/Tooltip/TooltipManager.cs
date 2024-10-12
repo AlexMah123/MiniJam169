@@ -20,12 +20,14 @@ namespace UserInterface.HUD.Tooltip
             {
                 Instance = this;
             }
+            
+            gameObject.SetActive(false);
+
         }
 
         private void Start()
         {
             Cursor.visible = true;
-            gameObject.SetActive(false);
         }
         
         private void Update()

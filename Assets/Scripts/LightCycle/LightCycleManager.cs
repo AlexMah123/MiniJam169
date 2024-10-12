@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace LightCycle
 {
@@ -9,9 +10,9 @@ namespace LightCycle
         [Header("Light Configs")]
         [SerializeField] private Light directionalLight;
         [SerializeField] private LightingPreset preset;
-        
-        [Header("CurrentTime of Day - In hours")]
-        [SerializeField, Range(0, 24)] private float timeOfDay;
+
+        [Header("CurrentTime of Day - In hours")] 
+        [Range(0, 24)] public float timeOfDay;
 
         [Header("Hour per real time seconds")]
         [SerializeField] private int realTimeSeconds = 10;

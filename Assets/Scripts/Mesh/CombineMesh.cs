@@ -10,21 +10,23 @@ namespace Mesh
         void Start()
         {
             MeshFilter[] meshFilters = GetComponentsInChildren<MeshFilter>();
-            CombineInstance[] combine = new CombineInstance[meshFilters.Length];
-
-
-            for (int i = 0; i < meshFilters.Length; i++)
+            CombineInstance[] combine = new CombineInstance[meshFilters.Length - 1]; //ignore parent
+            
+            //seperate index, only increments when filter is not null
+            int index = 0;
+            foreach (var filter in meshFilters)
             {
-                if (meshFilters[i].gameObject == this.gameObject || meshFilters[i] == null)
+                if (filter.gameObject == this.gameObject || filter == null)
                 {
                     continue;      
                 }
                 
-                combine[i].mesh = meshFilters[i].sharedMesh;
-                combine[i].transform = meshFilters[i].transform.localToWorldMatrix;
-                meshFilters[i].gameObject.SetActive(false);
+                combine[index].mesh = filter.sharedMesh;
+                combine[index].transform = filter.transform.localToWorldMatrix;
+                
+                filter.gameObject.SetActive(false);
+                index++;
             }
-  
             
             var meshFilter = GetComponent<MeshFilter>();
             meshFilter.mesh = new UnityEngine.Mesh();
