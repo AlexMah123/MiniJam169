@@ -13,11 +13,14 @@ MonoBehaviour:
   m_Name: HackSecurity
   m_EditorClassIdentifier: 
   decisionName: Hack Security
-  decisionDescription: 
-  decisionEffect: 
-  decisionDetail:
-    cost: 0
-    timeRequired: 0
-    policeAwarenessRaised: 0
-    mobsterAwarenessRaised: 0
-    mobsterCaughtEstimate: 0
+  decisionDescription: Bypass city security and monitor cameras
+  decisionEffect: '<b><color=green>Boon</color></b>: You cover a wider area
+
+    <b><color=red>Bane</color></b>:
+    police may be alerted'
+  decisionOutcome:
+    cost: 2
+    timeRequired: 2
+    policeAlertRaised: 10
+    mobsterAlertRaised: 0
+    mobsterCaught: 15

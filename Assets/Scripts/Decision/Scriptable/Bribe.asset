@@ -13,11 +13,12 @@ MonoBehaviour:
   m_Name: Bribe
   m_EditorClassIdentifier: 
   decisionName: Bribe
-  decisionDescription: 
-  decisionEffect: 
-  decisionDetail:
-    cost: 0
-    timeRequired: 0
-    policeAwarenessRaised: 0
-    mobsterAwarenessRaised: 0
-    mobsterCaughtEstimate: 0
+  decisionDescription: Deal with local gangs into giving up information
+  decisionEffect: "<b><color=green>Boon</color></b>: You get information on rival
+    gangs. \n<b><color=red>Bane</color></b>: They may rat on you."
+  decisionOutcome:
+    cost: 1
+    timeRequired: 2
+    policeAlertRaised: 0
+    mobsterAlertRaised: 10
+    mobsterCaught: 5

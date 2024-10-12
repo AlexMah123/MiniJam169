@@ -13,11 +13,14 @@ MonoBehaviour:
   m_Name: MonitorActivity
   m_EditorClassIdentifier: 
   decisionName: Monitor Activity
-  decisionDescription: 
-  decisionEffect: 
-  decisionDetail:
-    cost: 0
-    timeRequired: 0
-    policeAwarenessRaised: 0
-    mobsterAwarenessRaised: 0
-    mobsterCaughtEstimate: 0
+  decisionDescription: Radio in on police communications
+  decisionEffect: '<b><color=green>Boon</color></b>: You get information across the
+    city
+
+    <b><color=red>Bane</color></b>: You are always slower to alerts'
+  decisionOutcome:
+    cost: 1
+    timeRequired: 2
+    policeAlertRaised: 0
+    mobsterAlertRaised: 0
+    mobsterCaught: 5

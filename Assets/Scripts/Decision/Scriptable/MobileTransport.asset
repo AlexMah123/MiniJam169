@@ -13,11 +13,14 @@ MonoBehaviour:
   m_Name: MobileTransport
   m_EditorClassIdentifier: 
   decisionName: High Speed Pursuit
-  decisionDescription: 
-  decisionEffect: 
-  decisionDetail:
-    cost: 0
-    timeRequired: 0
-    policeAwarenessRaised: 0
-    mobsterAwarenessRaised: 0
-    mobsterCaughtEstimate: 0
+  decisionDescription: Use a vehicle to move around the city
+  decisionEffect: '<b><color=green>Boon</color></b>: You move much faster
+
+    <b><color=red>Bane</color></b>:
+    You alert everyone'
+  decisionOutcome:
+    cost: 2
+    timeRequired: 1
+    policeAlertRaised: 15
+    mobsterAlertRaised: 10
+    mobsterCaught: 20

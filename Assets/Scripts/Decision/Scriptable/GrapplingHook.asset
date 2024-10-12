@@ -13,11 +13,14 @@ MonoBehaviour:
   m_Name: GrapplingHook
   m_EditorClassIdentifier: 
   decisionName: Grappling Hook
-  decisionDescription: 
-  decisionEffect: 
-  decisionDetail:
-    cost: 0
-    timeRequired: 0
-    policeAwarenessRaised: 0
-    mobsterAwarenessRaised: 0
-    mobsterCaughtEstimate: 0
+  decisionDescription: Scale up a highrise building
+  decisionEffect: '<b><color=green>Boon</color></b>: You are able to move a lot more
+
+    <b><color=red>Bane</color></b>:
+    It takes time to prepare'
+  decisionOutcome:
+    cost: 2
+    timeRequired: 3
+    policeAlertRaised: 5
+    mobsterAlertRaised: 0
+    mobsterCaught: 10
