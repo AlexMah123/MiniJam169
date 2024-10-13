@@ -59,7 +59,7 @@ namespace UserInterface.Decision
 
         public void ConfirmDecision()
         {
-            GameManager.Instance.MakeChoice(_decisionSelected);
+            GameManager.Instance.MakeChoice(_decisionSelected, _decisionUISelected);
             _decisionUISelected.SetActive(false);
         }
 

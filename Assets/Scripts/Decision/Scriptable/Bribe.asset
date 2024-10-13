@@ -18,7 +18,7 @@ MonoBehaviour:
   decisionEffect: "<b><color=green>Boon</color></b>: You get information on rival
     gangs. \n<b><color=red>Bane</color></b>: They may rat on you."
   decisionOutcome:
-    timeRequired: 2
-    policeAlertRaised: 0
+    timeRequired: 3
+    policeAlertRaised: 5
     mobsterAlertRaised: 10
     mobsterCaught: 5

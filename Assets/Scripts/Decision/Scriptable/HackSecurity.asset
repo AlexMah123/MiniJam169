@@ -21,6 +21,6 @@ MonoBehaviour:
     police may be alerted'
   decisionOutcome:
     timeRequired: 2
-    policeAlertRaised: 10
+    policeAlertRaised: 15
     mobsterAlertRaised: 0
     mobsterCaught: 15

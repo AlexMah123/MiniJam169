@@ -15,7 +15,7 @@ namespace LightCycle
         [Range(0, 24)] public float timeOfDay;
 
         [Header("Hour per real time seconds")]
-        [SerializeField] private int realTimeSeconds = 10;
+        [SerializeField] private float realTimeSeconds = 10f;
         
         private void Update()
         {
@@ -62,6 +62,39 @@ namespace LightCycle
                 elapsedTime += Time.deltaTime;
                 yield return null;
             }
+
+            timeOfDay %= 24;
+            UpdateLighting(timeOfDay / 24f);
+        }
+        
+        public IEnumerator TimelapseToTime(int timeToTimelapseTill)
+        {
+            float elapsedTime = 0;
+
+            float targetTime = timeToTimelapseTill % 24;
+            
+            // If the target time is less than the current time, it's a new day
+            if (targetTime <= timeOfDay)
+            {
+                targetTime += 24;
+            }
+            
+            float startTime = timeOfDay;
+            float timeRequiredInRealSeconds = Mathf.Abs(targetTime - startTime) * realTimeSeconds;
+            
+            while (elapsedTime < timeRequiredInRealSeconds)
+            {
+                //every hour = realTimeSeconds
+                timeOfDay += Time.deltaTime / realTimeSeconds;
+                timeOfDay %= 24; //Modulus to ensure always between 0-24
+                UpdateLighting(timeOfDay / 24f);
+                
+                elapsedTime += Time.deltaTime;
+                yield return null;
+            }
+            
+            timeOfDay = targetTime % 24;
+            UpdateLighting(timeOfDay / 24f);
         }
         
 

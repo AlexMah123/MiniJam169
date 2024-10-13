@@ -21,6 +21,6 @@ MonoBehaviour:
     <b><color=red>Bane</color></b>: You are always slower to alerts'
   decisionOutcome:
     timeRequired: 2
-    policeAlertRaised: 0
+    policeAlertRaised: 15
     mobsterAlertRaised: 0
     mobsterCaught: 5

@@ -21,6 +21,6 @@ MonoBehaviour:
     It takes time to prepare'
   decisionOutcome:
     timeRequired: 3
-    policeAlertRaised: 5
-    mobsterAlertRaised: 0
+    policeAlertRaised: 10
+    mobsterAlertRaised: 2
     mobsterCaught: 10
