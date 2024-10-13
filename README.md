@@ -1,5 +1,6 @@
-# Details of Project
 ![TitleScreen](https://github.com/user-attachments/assets/428cf237-e175-48cc-8c1b-2ec3976d0148)
+
+# Details of Project
 - MiniJam169 GameJam: https://itch.io/jam/mini-jam-169-future
 - Itch.io link: https://alexmah.itch.io/cost-of-vigilance
 
