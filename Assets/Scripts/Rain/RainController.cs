@@ -8,8 +8,8 @@ namespace Rain
     {
         [Header("Rain Config")]
         [SerializeField] private ParticleSystem rain;
-        [SerializeField] private float minDurationSecond = 60f;
-        [SerializeField] private float maxDurationSecond = 180f;
+        [SerializeField] private float minDurationSecond = 30f;
+        [SerializeField] private float maxDurationSecond = 120f;
         [SerializeField] private bool isStartWithRain = true;
 
         private float _currentTimer;

@@ -30,7 +30,7 @@ namespace UserInterface.HUD.Tooltip
             Cursor.visible = true;
         }
         
-        private void Update()
+        private void LateUpdate()
         {
             transform.position = Input.mousePosition;
         }

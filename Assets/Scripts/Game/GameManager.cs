@@ -1,7 +1,10 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 using Decision;
+using UserInterface.Decision;
 using Random = UnityEngine.Random;
 
 namespace Game
@@ -9,6 +12,7 @@ namespace Game
     [Serializable]
     public struct GameOutcome
     {
+        public int day;
         public int timeRemaining;
         public int policeAlertRaised;
         public int mobsterAlertRaised;
@@ -23,15 +27,21 @@ namespace Game
         public int timeHoursPerDay = 18;
         public int maxPoliceAlert = 100;
         public int maxMobsterAlert = 100;
+        public GameObject decisionContainer;
         
         [Header("GameConfig")]
         public int maxMobsterSpawn = 10;
         public int maxPoliceSpawn = 10;
+        public int policeAlertDrop = 10;
+        public int mobsterAlertDrop = 10;
         public float minMobsterMultiplier = 0.25f;
         public float maxMobsterMultiplier = 0.75f;
         
         [Header("GameState")]
         public GameOutcome currentOutcome;
+
+
+        private List<DecisionUI> _decisionUIList = new();
         
         //event declaration
         public event Action<GameOutcome> OnGameOver;
@@ -47,8 +57,15 @@ namespace Game
             {
                 Instance = this;
             }
+
+            if (decisionContainer == null)
+            {
+                Debug.LogError("No Decision Container found");
+                return;
+            }
             
             currentOutcome = new GameOutcome();
+            _decisionUIList = decisionContainer.GetComponentsInChildren<DecisionUI>().ToList();
         }
 
         private void Start()
@@ -59,12 +76,15 @@ namespace Game
         private void StartGame()
         {
             StartDay();
-            OnOutcomeChanged?.Invoke(currentOutcome, maxPoliceAlert, maxMobsterAlert);
         }
 
         private void StartDay()
         {
+            currentOutcome.day++;
             currentOutcome.timeRemaining = timeHoursPerDay;
+
+            RandomizeAlertDrop();
+            OnOutcomeChanged?.Invoke(currentOutcome, maxPoliceAlert, maxMobsterAlert);
         }
         
         public void MakeChoice(DecisionSO choice)
@@ -83,6 +103,21 @@ namespace Game
             }
         }
 
+        private void RandomizeAlertDrop()
+        {
+            var randomPoliceAlert = Random.Range(0, policeAlertDrop);
+            var randomMobsterAlert = Random.Range(0, mobsterAlertDrop);
+            
+            currentOutcome.policeAlertRaised -= randomPoliceAlert;
+            currentOutcome.mobsterAlertRaised -= randomMobsterAlert;
+            
+            currentOutcome.policeAlertRaised = Mathf.Clamp(currentOutcome.policeAlertRaised, 0, maxPoliceAlert);
+            currentOutcome.mobsterAlertRaised = Mathf.Clamp(currentOutcome.mobsterAlertRaised, 0, maxMobsterAlert);
+            
+            OnOutcomeChanged?.Invoke(currentOutcome, maxPoliceAlert, maxMobsterAlert);
+        }
+
+        #region Helper Methods
         private bool IsCaught()
         {
             return currentOutcome.policeAlertRaised == maxPoliceAlert;
@@ -106,5 +141,6 @@ namespace Game
 
             return passiveMobsterAmount;
         }
+        #endregion
     }
 }

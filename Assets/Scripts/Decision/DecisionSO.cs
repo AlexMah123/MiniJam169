@@ -16,6 +16,7 @@ namespace Decision
     [CreateAssetMenu(menuName = "Scriptables/DecisionSO", order = 0)]
     public class DecisionSO : ScriptableObject
     {
+        public Sprite icon;
         public string decisionName;
         public string decisionDescription;
         

@@ -7,7 +7,8 @@ namespace UserInterface.HUD
 {
     public class TimeManager : MonoBehaviour
     {
-        [SerializeField] TextMeshProUGUI timeText;
+        [SerializeField] private TextMeshProUGUI dayText;
+        [SerializeField] private TextMeshProUGUI timeText;
 
         private void OnDisable()
         {
@@ -21,6 +22,7 @@ namespace UserInterface.HUD
 
         private void UpdateTime(GameOutcome outcome, int maxPoliceAlert, int maxMobsterAlert)
         {
+            dayText.text = $"Day: {outcome.day}";
             timeText.text = $"Remaining: {outcome.timeRemaining} Hours";
         }
     }
