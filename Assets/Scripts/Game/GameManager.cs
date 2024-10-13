@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using Audio;
 using UnityEngine;
 
 using Decision;
@@ -133,6 +134,7 @@ namespace Game
         
         public void MakeChoice(DecisionSO choice, GameObject uiObj)
         {
+            SFXManager.Instance.PlaySoundFXClip("DecisionSFX", uiObj.transform);
             _currentDecisionObjMade.Add(uiObj);
             
             //temporarily disable DecisionUI
@@ -154,6 +156,8 @@ namespace Game
             SetUIObjState(true);
             SetSkipActionObjState(true);
             
+            SFXManager.Instance.PlaySoundFXClip("CrimeSFX", this.transform);
+
             //apply choice effect
             currentOutcome.timeRemaining -= choice.decisionOutcome.timeRequired;
             currentOutcome.policeAlertRaised += choice.decisionOutcome.policeAlertRaised;
@@ -176,6 +180,8 @@ namespace Game
                 
                 //call coroutine to make choice and start timelapse
                 StartCoroutine(ResetDay());
+                
+                SFXManager.Instance.PlaySoundFXClip("PoliceSFX", this.transform);
             }
             
             if (IsPlayerCaught())

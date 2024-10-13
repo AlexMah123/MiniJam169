@@ -1,4 +1,5 @@
 ﻿using System;
+using Audio;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -52,6 +53,8 @@ namespace Rain
         {
             if(rain == null) return;
 
+            SFXManager.Instance.PlaySoundFXClip("CityAmbience", this.transform);
+            
             if (rain.isPlaying)
             {
                 rain.Stop();
