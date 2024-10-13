@@ -7,7 +7,6 @@ namespace Decision
     [Serializable]
     public struct DecisionOutcome
     {
-        public int cost;
         public int timeRequired;
         public int policeAlertRaised;
         public int mobsterAlertRaised;

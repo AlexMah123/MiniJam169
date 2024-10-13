@@ -1,15 +1,14 @@
 ﻿using System;
-using System.Collections.Generic;
-using Decision;
 using UnityEngine;
-using UnityEngine.Serialization;
+
+using Decision;
+using Random = UnityEngine.Random;
 
 namespace Game
 {
     [Serializable]
     public struct GameOutcome
     {
-        public int currentCost;
         public int timeRemaining;
         public int policeAlertRaised;
         public int mobsterAlertRaised;
@@ -20,19 +19,23 @@ namespace Game
     {
         public static GameManager Instance;
 
-        [Header("GameConfig")] 
-        public int playerStartingCost = 3;
+        [Header("Starting GameConfig")] 
         public int timeHoursPerDay = 18;
         public int maxPoliceAlert = 100;
-
+        public int maxMobsterAlert = 100;
+        
+        [Header("GameConfig")]
+        public int maxMobsterSpawn = 10;
+        public int maxPoliceSpawn = 10;
+        public float minMobsterMultiplier = 0.25f;
+        public float maxMobsterMultiplier = 0.75f;
+        
         [Header("GameState")]
         public GameOutcome currentOutcome;
         
-        private int _currentPlayerCost;
-        
         //event declaration
         public event Action<GameOutcome> OnGameOver;
-        public event Action<GameOutcome> OnOutcomeChanged;
+        public event Action<GameOutcome, int, int> OnOutcomeChanged;
         
         private void Awake()
         {
@@ -56,27 +59,23 @@ namespace Game
         private void StartGame()
         {
             StartDay();
-            OnOutcomeChanged?.Invoke(currentOutcome);
+            OnOutcomeChanged?.Invoke(currentOutcome, maxPoliceAlert, maxMobsterAlert);
         }
 
         private void StartDay()
         {
             currentOutcome.timeRemaining = timeHoursPerDay;
-            currentOutcome.currentCost = playerStartingCost;
         }
         
         public void MakeChoice(DecisionSO choice)
         {
-            //cost
-            currentOutcome.currentCost -= choice.decisionOutcome.cost;
-            
             //apply choice effect
             currentOutcome.timeRemaining -= choice.decisionOutcome.timeRequired;
             currentOutcome.policeAlertRaised += choice.decisionOutcome.policeAlertRaised;
             currentOutcome.mobsterAlertRaised += choice.decisionOutcome.mobsterAlertRaised;
             currentOutcome.mobsterCaught += choice.decisionOutcome.mobsterCaught;
             
-            OnOutcomeChanged?.Invoke(currentOutcome);
+            OnOutcomeChanged?.Invoke(currentOutcome, maxPoliceAlert, maxMobsterAlert);
             
             if (IsCaught())
             {
@@ -87,6 +86,25 @@ namespace Game
         private bool IsCaught()
         {
             return currentOutcome.policeAlertRaised == maxPoliceAlert;
+        }
+
+        private int CalculateMobsterSpawn(int currentMobsterAlert)
+        {
+            return Mathf.Max(0, (int)(maxMobsterSpawn * (1f - (float)currentMobsterAlert /maxMobsterAlert)));
+        }
+
+        private int CalculatePoliceSpawn(int currentPoliceAlert)
+        {
+            return Mathf.Max(0, (int)(maxPoliceSpawn * ((float)currentPoliceAlert / maxPoliceAlert)));
+        }
+
+        private int CalculatePassiveMobsterCaught(float remainingTime)
+        {
+            float randomMultiplier = Random.Range(minMobsterMultiplier, maxMobsterMultiplier);
+
+            int passiveMobsterAmount = Mathf.RoundToInt(remainingTime * randomMultiplier);
+
+            return passiveMobsterAmount;
         }
     }
 }

@@ -19,7 +19,7 @@ namespace UserInterface.HUD
             GameManager.Instance.OnOutcomeChanged += UpdateTime;
         }
 
-        private void UpdateTime(GameOutcome outcome)
+        private void UpdateTime(GameOutcome outcome, int maxPoliceAlert, int maxMobsterAlert)
         {
             timeText.text = $"Remaining: {outcome.timeRemaining} Hours";
         }

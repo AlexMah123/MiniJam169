@@ -28,11 +28,11 @@ namespace UserInterface.HUD.Stats
             }
         }
         
-        private void OnOutcomeChanged(GameOutcome outcome)
+        private void OnOutcomeChanged(GameOutcome outcome, int maxPoliceAlert, int maxMobsterAlert)
         {
-            _policeAlertText.text = outcome.policeAlertRaised.ToString();
-            _mobsterAlertText.text = outcome.mobsterAlertRaised.ToString();
-            _mobsterCaughtText.text = outcome.mobsterCaught.ToString();
+            _policeAlertText.text = $"{outcome.policeAlertRaised}/{maxPoliceAlert}";
+            _mobsterAlertText.text = $"{outcome.mobsterAlertRaised}/{maxMobsterAlert}";
+            _mobsterCaughtText.text = $"{outcome.mobsterCaught}";
         }
         
     }
