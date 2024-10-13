@@ -12,12 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: be27a7ec2eb64560a54720b8289a5420, type: 3}
   m_Name: Bribe
   m_EditorClassIdentifier: 
+  icon: {fileID: 21300000, guid: b5acbf203a4b14042b49edd8e43dfb35, type: 3}
   decisionName: Bribe
   decisionDescription: Deal with local gangs into giving up information
   decisionEffect: "<b><color=green>Boon</color></b>: You get information on rival
     gangs. \n<b><color=red>Bane</color></b>: They may rat on you."
   decisionOutcome:
-    cost: 1
     timeRequired: 2
     policeAlertRaised: 0
     mobsterAlertRaised: 10

@@ -1,5 +1,5 @@
-﻿using UnityEngine;
-using UnityEngine.Serialization;
+﻿using System.Collections;
+using UnityEngine;
 
 namespace LightCycle
 {
@@ -25,14 +25,7 @@ namespace LightCycle
                 return;
             }
 
-            if (Application.isPlaying)
-            {
-                //(Replace with a reference to the game time)
-                timeOfDay += Time.deltaTime / realTimeSeconds;
-                timeOfDay %= 24; //Modulus to ensure always between 0-24
-                UpdateLighting(timeOfDay / 24f);
-            }
-            else
+            if (!Application.isPlaying)
             {
                 UpdateLighting(timeOfDay / 24f);
             }
@@ -52,6 +45,25 @@ namespace LightCycle
                 directionalLight.transform.localRotation = Quaternion.Euler(new Vector3((timePercent * 360f) - 90f, 170f, 0));
             }
         }
+        
+        public IEnumerator StartTimelapse(int timeRequired)
+        {
+            float elapsedTime = 0;
+
+            var timeRequiredInRealSeconds = timeRequired * realTimeSeconds;
+            
+            while (elapsedTime < timeRequiredInRealSeconds)
+            {
+                //every hour = realTimeSeconds
+                timeOfDay += Time.deltaTime / realTimeSeconds;
+                timeOfDay %= 24; //Modulus to ensure always between 0-24
+                UpdateLighting(timeOfDay / 24f);
+                
+                elapsedTime += Time.deltaTime;
+                yield return null;
+            }
+        }
+        
 
         //Try to find a directional light to use if we haven't set one
         private void OnValidate()

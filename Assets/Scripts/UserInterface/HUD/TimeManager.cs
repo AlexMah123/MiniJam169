@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using Game;
 using UnityEngine;
 using TMPro;
@@ -10,6 +11,8 @@ namespace UserInterface.HUD
         [SerializeField] private TextMeshProUGUI dayText;
         [SerializeField] private TextMeshProUGUI timeText;
 
+        private int _currentTime;
+        
         private void OnDisable()
         {
             GameManager.Instance.OnOutcomeChanged -= UpdateTime;

@@ -4,6 +4,7 @@ using System.Linq;
 using UnityEngine;
 
 using Decision;
+using LightCycle;
 using UserInterface.Decision;
 using Random = UnityEngine.Random;
 
@@ -37,6 +38,9 @@ namespace Game
         public float minMobsterMultiplier = 0.25f;
         public float maxMobsterMultiplier = 0.75f;
         
+        [Header("Dependencies")]
+        [SerializeField] private LightCycleManager lightCycleManager;
+        
         [Header("GameState")]
         public GameOutcome currentOutcome;
 
@@ -46,6 +50,8 @@ namespace Game
         //event declaration
         public event Action<GameOutcome> OnGameOver;
         public event Action<GameOutcome, int, int> OnOutcomeChanged;
+        
+        private Coroutine _decisionCoroutine;
         
         private void Awake()
         {
@@ -61,6 +67,12 @@ namespace Game
             if (decisionContainer == null)
             {
                 Debug.LogError("No Decision Container found");
+                return;
+            }
+
+            if (lightCycleManager == null)
+            {
+                Debug.LogError("No LightCycleManager found");
                 return;
             }
             
@@ -89,6 +101,8 @@ namespace Game
         
         public void MakeChoice(DecisionSO choice)
         {
+            _decisionCoroutine = lightCycleManager.StartCoroutine(lightCycleManager.StartTimelapse(choice.decisionOutcome.timeRequired));
+            
             //apply choice effect
             currentOutcome.timeRemaining -= choice.decisionOutcome.timeRequired;
             currentOutcome.policeAlertRaised += choice.decisionOutcome.policeAlertRaised;
@@ -116,7 +130,7 @@ namespace Game
             
             OnOutcomeChanged?.Invoke(currentOutcome, maxPoliceAlert, maxMobsterAlert);
         }
-
+        
         #region Helper Methods
         private bool IsCaught()
         {
@@ -140,6 +154,13 @@ namespace Game
             int passiveMobsterAmount = Mathf.RoundToInt(remainingTime * randomMultiplier);
 
             return passiveMobsterAmount;
+        }
+
+        [ContextMenu("GameManager/EndGame")]
+        private void EndGame()
+        {
+            Debug.Log("Game Over");
+            OnGameOver?.Invoke(currentOutcome);
         }
         #endregion
     }

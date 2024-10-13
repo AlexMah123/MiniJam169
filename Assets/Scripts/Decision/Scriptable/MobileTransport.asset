@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: be27a7ec2eb64560a54720b8289a5420, type: 3}
   m_Name: MobileTransport
   m_EditorClassIdentifier: 
+  icon: {fileID: 21300000, guid: 3561209a41592664e9ee0669f9bc0498, type: 3}
   decisionName: High Speed Pursuit
   decisionDescription: Use a vehicle to move around the city
   decisionEffect: '<b><color=green>Boon</color></b>: You move much faster
@@ -19,7 +20,6 @@ MonoBehaviour:
     <b><color=red>Bane</color></b>:
     You alert everyone'
   decisionOutcome:
-    cost: 2
     timeRequired: 1
     policeAlertRaised: 15
     mobsterAlertRaised: 10

@@ -1,5 +1,6 @@
 ﻿using System;
 using Decision;
+using Game;
 using TMPro;
 using UnityEngine;
 
@@ -9,7 +10,8 @@ namespace UserInterface.Decision
     {
         [Header("UI Elements")]
         [SerializeField] private GameObject popupUI;
-
+        
+        [Space(10)]
         [SerializeField] private TextMeshProUGUI decisionName;
         [SerializeField] private TextMeshProUGUI decisionDescription;
         [SerializeField] private TextMeshProUGUI decisionEffect;
@@ -20,6 +22,8 @@ namespace UserInterface.Decision
         [SerializeField] private TextMeshProUGUI mobsterCaught;
         
         private Camera _mainCamera;
+        private DecisionSO _decisionSelected;
+        private GameObject _decisionUISelected;
         
         private void OnEnable()
         {
@@ -52,24 +56,52 @@ namespace UserInterface.Decision
         {
             popupUI.gameObject.SetActive(false);
         }
-        
-        private void HandleDecisionInteract(DecisionSO obj)
+
+        public void ConfirmDecision()
         {
-            popupUI.gameObject.SetActive(true);
-            UpdatePopupUI(obj);
+            GameManager.Instance.MakeChoice(_decisionSelected);
+            _decisionUISelected.SetActive(false);
         }
 
-        private void UpdatePopupUI(DecisionSO obj)
+        public void CancelDecision()
         {
-            decisionName.text = obj.decisionName;
-            decisionDescription.text = $"<color=yellow>Description</color>: {obj.decisionDescription}";
-            decisionEffect.text = $"{obj.decisionEffect}";
+            _decisionUISelected = null;
+            _decisionSelected = null;
+        }
+        
+        private void HandleDecisionInteract(DecisionSO scriptable, GameObject uiObj)
+        {
+            if (scriptable == null)
+            {
+                Debug.LogError("DecisionSO is null when confirming decision");
+                return;
+            }
+
+            if (uiObj == null)
+            {
+                Debug.LogError("UI Object is null when confirming decision");
+                return;
+            }
             
-            timeRequired.text = $"Time required to execute: {obj.decisionOutcome.timeRequired} Hours";
-            
-            policeAlert.text = $"{obj.decisionOutcome.policeAlertRaised}";
-            mobsterAlert.text = $"{obj.decisionOutcome.mobsterAlertRaised}";
-            mobsterCaught.text = $"{obj.decisionOutcome.mobsterCaught}";
+            popupUI.gameObject.SetActive(true);
+            UpdatePopupUI(scriptable, uiObj);
+        }
+
+        private void UpdatePopupUI(DecisionSO scriptable, GameObject uiObj)
+        {
+            //cache current obj and scriptable when selected.
+            _decisionUISelected = uiObj;
+            _decisionSelected = scriptable;
+
+            decisionName.text = scriptable.decisionName;
+            decisionDescription.text = $"<color=yellow>Description</color>: {scriptable.decisionDescription}";
+            decisionEffect.text = $"{scriptable.decisionEffect}";
+
+            timeRequired.text = $"Time required to execute: <color=magenta>{scriptable.decisionOutcome.timeRequired} Hour</color>";
+
+            policeAlert.text = $"{scriptable.decisionOutcome.policeAlertRaised}";
+            mobsterAlert.text = $"{scriptable.decisionOutcome.mobsterAlertRaised}";
+            mobsterCaught.text = $"{scriptable.decisionOutcome.mobsterCaught}";
         }
     }
 }

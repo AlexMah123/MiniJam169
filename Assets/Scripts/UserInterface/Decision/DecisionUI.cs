@@ -16,7 +16,7 @@ namespace UserInterface.Decision
         private Camera _mainCamera;
 
         //event declaration
-        public event Action<DecisionSO> OnDecisionInteract;
+        public event Action<DecisionSO, GameObject> OnDecisionInteract;
         
         private void Awake()
         {
@@ -37,7 +37,7 @@ namespace UserInterface.Decision
         public void Interact()
         {
             //rect transform
-            OnDecisionInteract?.Invoke(decision);
+            OnDecisionInteract?.Invoke(decision, this.gameObject);
         }
     }
 }
