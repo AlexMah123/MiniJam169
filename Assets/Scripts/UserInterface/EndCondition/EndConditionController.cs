@@ -1,5 +1,5 @@
 ﻿using System;
-using Game;
+using GameCore;
 using TMPro;
 using UnityEngine;
 

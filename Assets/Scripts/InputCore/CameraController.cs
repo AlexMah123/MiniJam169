@@ -1,8 +1,6 @@
-﻿using System;
-using UnityEngine;
-using UnityEngine.Serialization;
+﻿using UnityEngine;
 
-namespace PlayerInput
+namespace InputCore
 {
     public class CameraController : MonoBehaviour
     {
@@ -51,10 +49,10 @@ namespace PlayerInput
         private void HandleMouseInput()
         {
             //Movement Panning
-            if (Input.GetMouseButtonDown(0))
+            if (UnityEngine.Input.GetMouseButtonDown(0))
             {
                 Plane plane = new Plane(Vector3.up, Vector3.zero);
-                Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+                Ray ray = Camera.main.ScreenPointToRay(UnityEngine.Input.mousePosition);
                 float entry;
 
                 if (plane.Raycast(ray, out entry))
@@ -62,10 +60,10 @@ namespace PlayerInput
                     dragStartPosition = ray.GetPoint(entry);
                 }
             }
-            if (Input.GetMouseButton(0))
+            if (UnityEngine.Input.GetMouseButton(0))
             {
                 Plane plane = new Plane(Vector3.up, Vector3.zero);
-                Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+                Ray ray = Camera.main.ScreenPointToRay(UnityEngine.Input.mousePosition);
                 float entry;
 
                 if (plane.Raycast(ray, out entry))
@@ -76,10 +74,10 @@ namespace PlayerInput
             }
             
             //Zoom
-            if (Input.mouseScrollDelta.y != 0f)
+            if (UnityEngine.Input.mouseScrollDelta.y != 0f)
             {
                 //negate, scroll up is zoomIn, scroll down is zoomOut.
-                newZoom -= zoomAmount * Input.mouseScrollDelta.y;
+                newZoom -= zoomAmount * UnityEngine.Input.mouseScrollDelta.y;
                 
                 //z needs to be negative, because the camera is facing downwards.
                 newZoom.y = Mathf.Clamp(newZoom.y, maxZoomInAmount, minZoomInAmount);
@@ -87,13 +85,13 @@ namespace PlayerInput
             }
             
             //Rotation Orbit
-            if (Input.GetMouseButtonDown(2))
+            if (UnityEngine.Input.GetMouseButtonDown(2))
             {
-                rotateStartPosition = Input.mousePosition;
+                rotateStartPosition = UnityEngine.Input.mousePosition;
             }
-            if (Input.GetMouseButton(2))
+            if (UnityEngine.Input.GetMouseButton(2))
             {
-                rotateCurrentPosition = Input.mousePosition;
+                rotateCurrentPosition = UnityEngine.Input.mousePosition;
                 
                 Vector3 delta = rotateStartPosition - rotateCurrentPosition;
                 
@@ -105,34 +103,34 @@ namespace PlayerInput
 
         private void HandleKeyboardInput()
         {
-            movementSpeed = Input.GetKey(KeyCode.LeftShift) ? fastSpeed : normalSpeed;
+            movementSpeed = UnityEngine.Input.GetKey(KeyCode.LeftShift) ? fastSpeed : normalSpeed;
 
-            if (Input.GetKey(KeyCode.W))
+            if (UnityEngine.Input.GetKey(KeyCode.W))
             {
                 newPosition += transform.forward * movementSpeed;
             }
 
-            if (Input.GetKey(KeyCode.S))
+            if (UnityEngine.Input.GetKey(KeyCode.S))
             {
                 newPosition += transform.forward * -movementSpeed;
             }
 
-            if (Input.GetKey(KeyCode.A))
+            if (UnityEngine.Input.GetKey(KeyCode.A))
             {
                 newPosition += transform.right * -movementSpeed;
             }
 
-            if (Input.GetKey(KeyCode.D))
+            if (UnityEngine.Input.GetKey(KeyCode.D))
             {
                 newPosition += transform.right * movementSpeed;
             }
 
-            if (Input.GetKey(KeyCode.Q))
+            if (UnityEngine.Input.GetKey(KeyCode.Q))
             {
                 newRotation *= Quaternion.Euler(Vector3.up * (rotationAmount * 7f));
             }
 
-            if (Input.GetKey(KeyCode.E))
+            if (UnityEngine.Input.GetKey(KeyCode.E))
             {
                 newRotation *= Quaternion.Euler(Vector3.up * (-rotationAmount * 7f));
             }

@@ -2,7 +2,7 @@
 using System.Linq;
 using UnityEngine;
 
-namespace Audio
+namespace AudioCore
 {
     [Serializable]
     public struct SoundEffect

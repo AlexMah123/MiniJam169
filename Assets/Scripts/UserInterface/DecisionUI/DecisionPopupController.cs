@@ -1,10 +1,10 @@
-﻿using System;
-using Decision;
-using Game;
+﻿using DecisionCore;
 using TMPro;
 using UnityEngine;
 
-namespace UserInterface.Decision
+using GameCore;
+
+namespace UserInterface.DecisionUI
 {
     public class DecisionPopupController : MonoBehaviour
     {

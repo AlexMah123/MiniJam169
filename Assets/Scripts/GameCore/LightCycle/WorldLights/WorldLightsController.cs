@@ -1,10 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
-using UnityEngine.Serialization;
 
-namespace LightCycle.WorldLights
+namespace GameCore.LightCycle.WorldLights
 {
     [ExecuteAlways]
     public class WorldLightsController : MonoBehaviour

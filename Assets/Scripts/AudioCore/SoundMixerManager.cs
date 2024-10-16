@@ -2,7 +2,7 @@
 using UnityEngine.Audio;
 using UnityEngine.UI;
 
-namespace Audio
+namespace AudioCore
 {
     public class SoundMixerManager : MonoBehaviour
     {

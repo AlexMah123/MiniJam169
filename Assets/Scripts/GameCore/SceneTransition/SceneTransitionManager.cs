@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Collections;
+using AudioCore;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using Audio;
 
-namespace SceneTransition
+namespace GameCore.SceneTransition
 {
     [Serializable]
     public enum SceneType
@@ -17,7 +17,7 @@ namespace SceneTransition
     public class SceneTransitionManager : MonoBehaviour
     {
         public static SceneTransitionManager Instance;
-        private bool isTransitioning = false;
+        private bool _isTransitioning = false;
 
         private void Awake()
         {
@@ -35,7 +35,7 @@ namespace SceneTransition
         public void LoadScene(SceneType scene)
         {
             //early return to prevent spamming
-            if (isTransitioning) return;
+            if (_isTransitioning) return;
 
             SFXManager.Instance.PlaySoundFXClip("SceneTransition", transform);
             StartCoroutine(LoadSceneAsync(scene));
@@ -44,7 +44,7 @@ namespace SceneTransition
         private IEnumerator LoadSceneAsync(SceneType sceneType)
         {
             //set flag to true
-            isTransitioning = true;
+            _isTransitioning = true;
 
 
             if (sceneType == SceneType.Exit)
@@ -55,7 +55,7 @@ namespace SceneTransition
                 Debug.Log("Quitting Game");
 
                 //early reset
-                isTransitioning = false;
+                _isTransitioning = false;
                 yield break;
             }
 
@@ -69,7 +69,7 @@ namespace SceneTransition
             scene.allowSceneActivation = true;
 
             //reset flag
-            isTransitioning = false;
+            _isTransitioning = false;
         }
     }
 }

@@ -1,7 +1,7 @@
 ﻿using System.Collections;
+using AudioCore;
 using UnityEngine;
-using SceneTransition;
-using Audio;
+using GameCore.SceneTransition;
 
 namespace UserInterface.Button
 {

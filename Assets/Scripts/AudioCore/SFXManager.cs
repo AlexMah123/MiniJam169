@@ -1,7 +1,7 @@
 ﻿using System;
 using UnityEngine;
 
-namespace Audio
+namespace AudioCore
 {
     public class SFXManager : MonoBehaviour
     {

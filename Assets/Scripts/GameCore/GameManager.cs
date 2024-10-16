@@ -2,17 +2,17 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using Audio;
-using UnityEngine;
-
-using Decision;
-using LightCycle;
 using TMPro;
+using UnityEngine;
 using UnityEngine.UI;
-using UserInterface.Decision;
+
+using AudioCore;
+using DecisionCore;
+using GameCore.LightCycle;
+using UserInterface.DecisionUI;
 using Random = UnityEngine.Random;
 
-namespace Game
+namespace GameCore
 {
     [Serializable]
     public struct GameOutcome

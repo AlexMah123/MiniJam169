@@ -1,9 +1,9 @@
 ﻿using System;
-using Decision;
+using DecisionCore;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace UserInterface.Decision
+namespace UserInterface.DecisionUI
 {
     public class DecisionUI : MonoBehaviour
     {

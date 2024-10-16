@@ -1,9 +1,8 @@
-﻿using System;
-using Audio;
+﻿using AudioCore;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
-namespace Rain
+namespace GameCore.RainSystem
 {
     public class RainController : MonoBehaviour
     {

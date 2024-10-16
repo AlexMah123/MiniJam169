@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace Mesh
+namespace HelperCore.Mesh
 {
     
     [RequireComponent(typeof(MeshFilter))]

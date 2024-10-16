@@ -1,8 +1,7 @@
 ﻿using System;
 using UnityEngine;
-using UnityEngine.Serialization;
 
-namespace Decision
+namespace DecisionCore
 {
     [Serializable]
     public struct DecisionOutcome

@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using UnityEngine;
 
-namespace LightCycle
+namespace GameCore.LightCycle
 {
     [ExecuteAlways]
     public class LightCycleManager : MonoBehaviour

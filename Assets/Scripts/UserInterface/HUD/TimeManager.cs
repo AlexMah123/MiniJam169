@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections;
-using Game;
+using GameCore;
 using UnityEngine;
 using TMPro;
 
