@@ -97,7 +97,7 @@ namespace UserInterface.DecisionUI
             decisionDescription.text = $"<color=yellow>Description</color>: {scriptable.decisionDescription}";
             decisionEffect.text = $"{scriptable.decisionEffect}";
 
-            timeRequired.text = $"Time required to execute: <color=magenta>{scriptable.decisionOutcome.timeRequired} Hour</color>";
+            timeRequired.text = $"Time required to execute: <color=#FF00FF>{scriptable.decisionOutcome.timeRequired} Hour</color>";
 
             policeAlert.text = $"{scriptable.decisionOutcome.policeAlertRaised}";
             mobsterAlert.text = $"{scriptable.decisionOutcome.mobsterAlertRaised}";
